@@ -18,9 +18,6 @@ class MainActivity : AppCompatActivity() {
 
         val navController = findNavController(R.id.nav_host_fragment)
 
-        /*val appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.navigation_summary, R.id.navigation_scorecard, R.id.navigation_commentary,R.id.navigation_match_info))
-        setupActionBarWithNavController(navController, appBarConfiguration)*/
         navView.setupWithNavController(navController)
     }
 }

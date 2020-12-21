@@ -89,7 +89,6 @@ class ScorecardFragment : Fragment() {
                 hideProgressbar()
             }
         }
-
     }
 
 
