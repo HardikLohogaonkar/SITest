@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_summary"
+        android:icon="@drawable/ic_summary"
+        android:title="@string/title_summary" />
+
+    <item
+        android:id="@+id/navigation_scorecard"
+        android:icon="@drawable/ic_scorecard"
+        android:title="@string/title_scorecard" />
+
+    <item
+        android:id="@+id/navigation_commentary"
+        android:icon="@drawable/ic_commentary"
+        android:title="@string/title_commentary" />
+
+    <item
+        android:id="@+id/navigation_match_info"
+        android:icon="@drawable/ic_match_info"
+        android:title="@string/title_match_info" />
+
+</menu>

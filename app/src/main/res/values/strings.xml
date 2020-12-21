@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">SportzIn</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_summary">Summary</string>
+    <string name="title_scorecard">Scorecard</string>
+    <string name="title_commentary">Commentary</string>
+    <string name="title_match_info">Match Info</string>
+</resources>
