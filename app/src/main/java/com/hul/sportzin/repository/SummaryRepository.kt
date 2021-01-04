@@ -14,6 +14,8 @@ class SummaryRepository {
 
     suspend fun insertTeam(players: List<Players>) = mDao.insertAll(players)
 
+    fun deleteData() = mDao.deleteAll()
+
     fun getAllPlayers() = mDao.getPlayersInfo()
 
 }

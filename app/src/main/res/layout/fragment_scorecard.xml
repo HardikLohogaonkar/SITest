@@ -66,7 +66,7 @@
                     app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
                     app:tabTextColor="@android:color/darker_gray" />
 
-                <androidx.viewpager.widget.ViewPager
+                <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/vpTeams"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/x0"

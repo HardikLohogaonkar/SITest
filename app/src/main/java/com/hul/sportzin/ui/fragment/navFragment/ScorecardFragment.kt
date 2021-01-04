@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.tabs.TabLayoutMediator
 import com.hul.sportzin.databinding.FragmentScorecardBinding
 import com.hul.sportzin.model.Players
 import com.hul.sportzin.model.SummaryData
@@ -48,12 +49,13 @@ class ScorecardFragment : Fragment() {
             ViewModelFactory(mSummaryRepository)
         )[SummaryViewModel::class.java]
 
-        mTeamPagerAdapter = TeamPagerAdapter(childFragmentManager)
+        mTeamPagerAdapter = TeamPagerAdapter(childFragmentManager, lifecycle)
 
         mConnectionManager = ConnectionManager(requireActivity())
 
         mConnectionManager.observe(viewLifecycleOwner, Observer { isConnected ->
             if (isConnected) {
+//                getData()
 
             } else {
                 mSummaryViewModel.getTeamData()
@@ -61,6 +63,7 @@ class ScorecardFragment : Fragment() {
 
             }
         })
+
         getData()
 
         return mScorecardBinding.root
@@ -114,7 +117,6 @@ class ScorecardFragment : Fragment() {
 
                         )
                     )
-
                 }
                 mTeamList.add(team.teamFullName.toString())
 
@@ -123,20 +125,48 @@ class ScorecardFragment : Fragment() {
             teamB = mSummaryViewModel.getTeamBPlayers(mPlayerList)
             mScorecardBinding.toolbar.tvMatchTitle.text =
                 teamA[0].teamName + " vs " + teamB[0].teamName
-            mTeamPagerAdapter.addFragment(TeamFragment.newInstance(teamA), teamA[0].teamName)
-            mTeamPagerAdapter.addFragment(TeamFragment.newInstance(teamB), teamB[0].teamName)
+            mTeamPagerAdapter.addFragment(TeamFragment.newInstance(teamA))
+            mTeamPagerAdapter.addFragment(TeamFragment.newInstance(teamB))
 
-            mSummaryViewModel.addTeamData(teamA)
-            mSummaryViewModel.addTeamData(teamB)
+            if (mPlayerList.size != 0) {
+
+                mSummaryViewModel.deleteData()
+                mSummaryViewModel.addTeamData(teamA)
+                mSummaryViewModel.addTeamData(teamB)
+            } else {
+                mSummaryViewModel.addTeamData(teamA)
+                mSummaryViewModel.addTeamData(teamB)
+            }
             mScorecardBinding.vpTeams.adapter = mTeamPagerAdapter
-            mScorecardBinding.tabTeams.setupWithViewPager(mScorecardBinding.vpTeams)
-            Log.d(TAG, "teams: ${teamA} ${teamB}")
+
+            setUpTabLayout()
 
         } catch (e: Exception) {
 
             Log.e(TAG, "Error: ${e.message}")
         }
 
+    }
+
+    private fun setUpTabLayout() {
+
+        try {
+            TabLayoutMediator(
+                mScorecardBinding.tabTeams, mScorecardBinding.vpTeams
+            ) { tab, position ->
+
+                when (position) {
+                    0 -> tab.text = teamA[position].teamName
+                    1 -> tab.text = teamB[position].teamName
+                }
+
+                Log.d(TAG, "tabText: ${tab.text}")
+            }
+                .attach()
+        } catch (e: Exception) {
+
+            Log.e(TAG, "ERROR: ${e.cause} ${e.message}")
+        }
     }
 
     private val getSavedDataObservable = Observer<List<Players>> { data ->
@@ -146,15 +176,15 @@ class ScorecardFragment : Fragment() {
         teamA = mSummaryViewModel.getTeamAPlayers(data)
         teamB = mSummaryViewModel.getTeamBPlayers(data)
 
-        mTeamPagerAdapter.addFragment(TeamFragment.newInstance(teamA), teamA[0].teamName)
-        mTeamPagerAdapter.addFragment(TeamFragment.newInstance(teamB), teamB[0].teamName)
+        mTeamPagerAdapter.addFragment(TeamFragment.newInstance(teamA))
+        mTeamPagerAdapter.addFragment(TeamFragment.newInstance(teamB))
 
         mScorecardBinding.toolbar.tvMatchTitle.text =
             teamA[0].teamName + " vs " + teamB[0].teamName
 
         mScorecardBinding.vpTeams.adapter = mTeamPagerAdapter
-        mScorecardBinding.tabTeams.setupWithViewPager(mScorecardBinding.vpTeams)
 
+        setUpTabLayout()
         Log.d(TAG, "Db data: $teamA $teamB")
     }
 

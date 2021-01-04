@@ -64,10 +64,13 @@ class SummaryViewModel(private val mSummaryRepository: SummaryRepository) : View
         }
     }
 
-    fun addTeamData(players: List<Players>) =viewModelScope.launch{
+    fun addTeamData(players: List<Players>) = viewModelScope.launch {
         mSummaryRepository.insertTeam(players)
     }
 
+    fun deleteData() = mSummaryRepository.deleteData()
 
     fun getTeamData() = mSummaryRepository.getAllPlayers()
+
+
 }

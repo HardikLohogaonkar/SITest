@@ -10,8 +10,7 @@ import kotlinx.android.parcel.Parcelize
 data class SummaryData(
     @SerializedName("Teams")
     val teams: MutableMap<String, Team>
-):Parcelable {
-}
+):Parcelable
 
 @Parcelize
 data class Team(
@@ -37,6 +36,4 @@ data class Players(
     val isCaptain: Boolean = false,
     @SerializedName("Iskeeper")
     val isKeeper: Boolean = false
-):Parcelable {
-
-}
+):Parcelable

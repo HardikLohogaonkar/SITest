@@ -4,11 +4,7 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.google.android.material.tabs.TabLayout
 import com.hul.sportzin.model.Players
-
-@BindingAdapter("tabText")
-fun setTabText(tabLayout: TabLayout, text: String) {
-
-}
+import com.hul.sportzin.model.Team
 
 @BindingAdapter("text")
 fun setPlayerName(textView: TextView, players: Players) {

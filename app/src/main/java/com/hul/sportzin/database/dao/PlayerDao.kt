@@ -13,8 +13,10 @@ interface PlayerDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(players: List<Players>)
 
-
     @Query("SELECT * FROM player_info")
     fun getPlayersInfo(): LiveData<List<Players>>
+
+    @Query("DELETE FROM player_info")
+    fun deleteAll()
 
 }
